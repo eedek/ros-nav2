@@ -33,7 +33,7 @@
         </material>
 
         <sensor name="gpu_lidar" type="gpu_lidar">
-
+            <gz_frame_id>lidar_link</gz_frame_id>
             <update_rate>10</update_rate>
             <topic>scan</topic> 
             

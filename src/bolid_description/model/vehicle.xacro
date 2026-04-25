@@ -250,6 +250,11 @@
 
     <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
       <parameters>$(find gazebo_ackermann_steering_vehicle)/config/gz_ros2_control.yaml</parameters>
+    
+      <ros>
+        <remapping>/ackermann_steering_controller/odometry:=/odom</remapping>
+        <remapping>/ackermann_steering_controller/tf_odometry:=/tf</remapping>
+      </ros>
     </plugin>
   </gazebo>
 
