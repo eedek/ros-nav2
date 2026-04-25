@@ -1,0 +1,27 @@
+ekf_filter_node:
+  ros__parameters:
+    use_sim_time: true
+    frequency: 10.0
+    two_d_mode: true
+    publish_tf: true
+
+    map_frame: map
+    odom_frame: odom
+    base_link_frame: base_footprint
+    world_frame: odom
+
+    # 1. Bierzemy z kół TYLKO prędkość jazdy do przodu (X)
+    odom0: /ackermann_steering_controller/odometry
+    odom0_config: [false, false, false,
+                   false, false, false,
+                   true,  false, false, # <--- Tylko v_x (prędkość liniowa X)
+                   false, false, false,
+                   false, false, false]
+
+    # 2. Bierzemy z IMU TYLKO obrót (Yaw) i prędkość obrotową (v_yaw)
+    imu0: /imu
+    imu0_config: [false, false, false,
+                  false, false, true,  # <--- Tylko Yaw
+                  false, false, false,
+                  false, false, true,  # <--- Tylko Prędkość obrotowa Yaw
+                  false, false, false]

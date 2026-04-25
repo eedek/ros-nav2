@@ -161,6 +161,18 @@ def generate_launch_description():
                                    parameters=[vehicle_params_path],
                                    output='screen')
 
+    ekf_params_path = os.path.join(package_path, 'config', 'ekf.yaml')
+
+    ekf_node = Node(
+        package='robot_localization',
+        executable='ekf_node',
+        name='ekf_filter_node',
+        output='screen',
+        parameters=[ekf_params_path, {'use_sim_time':True}],
+        remappings=[('/odometry/filtered', '/odom')]
+    )
+
+
     # Create the launch description
     launch_description = LaunchDescription([
         RegisterEventHandler(
@@ -179,6 +191,7 @@ def generate_launch_description():
         yaw_arg,
         spawn_model_gazebo_node,
         robot_state_publisher_node,
-        gz_bridge_node])
+        gz_bridge_node,
+        ekf_node])
 
     return launch_description
