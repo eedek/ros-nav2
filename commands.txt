@@ -22,5 +22,30 @@ ros2 run nav2_map_server map_saver_cli -f maps/my_map
 
 ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=True map:=my_map.yaml
 
-
 sudo apt install ros-jazzy-slam-toolbox
+
+
+
+## generating maps with custom OpenRobotics
+1. run simulation
+ros2 launch gazebo_ackermann_steering_vehicle vehicle.launch.py x:=-2.5 y:=0.0 z:=0.1 world:=src/gazebo_ackermann_steering_vehicle/launch/world.sdf
+
+2. run mapping
+ros2 launch nav2_bringup navigation_launch.py use_sim_time:=True
+
+3. run slam
+ros2 launch slam_toolbox online_async_launch.py  use_sim_time:=True
+
+4. run bridge
+ros2 run cmd_vel_bridge cmd_vel_bridge
+
+5. run gazebo_ackermann_steering_vehicle
+ros2 run rqt_robot_steering rqt_robot_steering
+
+6. run rvizz 
+ros2 run rviz2 rviz2
+
+7. drive manualy in world and map it
+
+8.save generated map
+ros2 run nav2_map_server map_saver_cli -f /maps/file
